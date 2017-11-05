@@ -15,7 +15,9 @@ public class Customer implements Runnable{
 		System.out.println("start customer id=" + Thread.currentThread().getId());
 		try {
 			while (isRunning) {
-				PCData data= queue.take();
+				PCData data=null;
+				if (!queue.isEmpty())
+				data= queue.take();
 				if(data!=null){
 					int res=data.getData()*data.getData();
 					System.out.println("result is "+res);
