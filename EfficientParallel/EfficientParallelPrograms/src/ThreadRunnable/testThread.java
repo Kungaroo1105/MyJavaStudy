@@ -10,6 +10,7 @@ public class testThread {
 //		m2.start();
 //		m3.start();
 		//Thread类也是Runnable接口的子类，这种写法就相当于实现了runnable接口
+		//最好不要这样创建线程，应该用线程池的方式，增强对线程进行管理
 		new Thread(m1).start();
 		new Thread(m1).start();
 		new Thread(m1).start();
