@@ -23,7 +23,6 @@ public class NewProxy {
 			// ≈–∂œ «∑Ò «¡–
 			boolean isColumn = field.isAnnotationPresent(NewAnnotation.class);
 			if (isColumn) {
-				NewAnnotation col = field.getAnnotation(NewAnnotation.class);
 				try {
 					Character f = field.getName().charAt(0);
 					if (Character.isLowerCase(f)) {
