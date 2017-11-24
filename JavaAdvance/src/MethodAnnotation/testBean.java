@@ -4,7 +4,6 @@ public class testBean {
 	private String studentName;
 	private String schoolName;
 	
-	
 	public testBean() {
 		super();
 	}

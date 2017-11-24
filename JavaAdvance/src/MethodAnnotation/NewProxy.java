@@ -2,14 +2,10 @@ package MethodAnnotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
-
-
 public class NewProxy {
 	public <T> T testProxy(Object bean,String methodName, Object... obj) {
 		Class<? extends Object> cls=bean.getClass();
 		try {
-					
 			java.lang.reflect.Method[] methods= cls.getDeclaredMethods();
 			for (Method method : methods) {
 				if (method.isAnnotationPresent(MethodAnno.class)){
@@ -20,8 +16,6 @@ public class NewProxy {
 					}
 				}
 			}
-			
-			
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
