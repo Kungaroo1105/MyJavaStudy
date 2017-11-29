@@ -5,5 +5,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 public @interface beforeAnno {
-	 public String value() default "";
+	 public String methodName() default "";
+	 public String className() default "";
 }
