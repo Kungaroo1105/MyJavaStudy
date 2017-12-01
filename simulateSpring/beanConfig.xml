@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans><bean className="yhk" location="spring." /><bean className="YHK" location="src.spring." /></beans>
+<beans><bean methodName="yhk" location="spring." /><bean methodName="YHK" location="src.spring." /></beans>

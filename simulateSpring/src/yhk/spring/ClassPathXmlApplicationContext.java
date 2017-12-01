@@ -1,4 +1,4 @@
-package spring;
+package yhk.spring;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-public class ClassPathXmlApplicationContext implements BeanFactory{
+public class ClassPathXmlApplicationContext{
 
 	private List<Map<String,String>> beans= new ArrayList<Map<String, String>>();
 	public  ClassPathXmlApplicationContext() {
@@ -22,10 +22,10 @@ public class ClassPathXmlApplicationContext implements BeanFactory{
 			List<Element> list= root.getChildren();
 			for (int i = 0; i < list.size(); i++) {
 				String location= list.get(i).getAttributeValue("location");
-				String className= list.get(i).getAttributeValue("className");
+				String methodName= list.get(i).getAttributeValue("methodName");
 				Map<String, String> bean =new HashMap<>();
 				bean.put("location", location);
-				bean.put("className", className);
+				bean.put("methodName", methodName);
 				beans.add(bean);
 			}
 		} catch (JDOMException e) {
@@ -37,11 +37,9 @@ public class ClassPathXmlApplicationContext implements BeanFactory{
 		}
 	}
 	
-	
-	@Override
 	public Object getBean(String o) {
 		for (Map<String, String> bean : beans) {
-			if(bean.get("className").equals(o)) {
+			if(bean.get("methodName").equals(o)) {
 				return bean.get("location");
 			}
 		}
