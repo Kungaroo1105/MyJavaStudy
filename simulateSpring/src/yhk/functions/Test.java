@@ -1,6 +1,5 @@
 package yhk.functions;
 
-import yhk.annotation.Function;
 import yhk.annotation.afterAnno;
 import yhk.annotation.beforeAnno;
 import yhk.spring.BeanFactoryOnMethod;

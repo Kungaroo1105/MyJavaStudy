@@ -1,7 +1,6 @@
 package yhk.spring;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import yhk.annotation.Component;
-import yhk.annotation.Function;
-import yhk.annotation.Resource;
 
 public class BeanFactoryOnMethod {
 	/**
@@ -24,7 +21,8 @@ public class BeanFactoryOnMethod {
 	private Map<String, Object> instanceMap = new HashMap<>();
 
 	private Map<String, Object> methodMap = new HashMap<>();
-
+	
+	private static Class[] annotations;
 	/**
 	 * 如果使用无参构造器,之后请记得使用setPkg方法
 	 */
@@ -36,12 +34,12 @@ public class BeanFactoryOnMethod {
 	 * 
 	 * @param pkg
 	 */
-	public BeanFactoryOnMethod(String pkg, Class[] annotations) {
+	public BeanFactoryOnMethod(String pkg) {
 		this.pkg = pkg;
-		IoC(annotations);
+		IoC();
 	}
 
-	private void IoC(Class[] annotations) {
+	private void IoC() {
 		// 将包形式转换为文件路径形式
 		String pkgPath = pkg.replaceAll("\\.", "/");
 		// 获取当前project的绝对路径
@@ -56,11 +54,11 @@ public class BeanFactoryOnMethod {
 		}
 		// 获取指定路径下的所有文件,遍历所有的文件和文件夹
 		recursion(file);
-		findMethod(annotations);
+		findMethod();
 	}
 
 	// 将instanceMap里所有的实例的methods找出,看看是否存在@Method,如果存在就将它实例化
-	private void findMethod(Class[] annotations) {
+	private void findMethod() {
 		// 获取指定路径pkg下存在@Component的所有对象实例
 		Collection<Object> values = instanceMap.values();
 		for (Object obj : values) {
@@ -124,17 +122,11 @@ public class BeanFactoryOnMethod {
 		try {
 			// 通过类路径创建指定的类
 			Class<?> clz = Class.forName(objPath);
-
 			Class<Component> annoClz = Component.class;
-
 			if (clz.isAnnotationPresent(annoClz)) {
-
 				Component c = clz.getAnnotation(annoClz);
-
 				Object instance = clz.newInstance();
-
 				String instanceName = "";
-
 				String annoValue = c.value();
 				// 如果使用的是默认值,则以类名为key存入map
 				if ("".equals(annoValue)) {
@@ -144,7 +136,6 @@ public class BeanFactoryOnMethod {
 				} else {
 					instanceName = annoValue;
 				}
-
 				// 存放到map中,如果返回值不为空,则表明已存在同名实例.
 				if (instanceMap.put(instanceName, instance) != null) {
 					throw new Exception("存在同名实例");
@@ -153,21 +144,6 @@ public class BeanFactoryOnMethod {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public Map<String, Object> getInstances() {
-		return instanceMap;
-	}
-
-	/**
-	 * 根据实例名获取实例
-	 * 
-	 * @param instanceName
-	 *            实例名
-	 * @return 实例
-	 */
-	public <T> T getInstance(String instanceName) {
-		return (T) instanceMap.get(instanceName);
 	}
 
 	public String getPkg() {
@@ -181,29 +157,7 @@ public class BeanFactoryOnMethod {
 	 */
 	public void setPkg(String pkg, Class[] annotations) {
 		this.pkg = pkg;
-		IoC(annotations);
-	}
-
-	/**
-	 * 测试
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		BeanFactoryOnMethod a = new BeanFactoryOnMethod("yhk", new Class[] { Function.class });
-		Map b = a.instanceMap;
-		Map method = a.methodMap;
-		System.out.println(b.size());
-
-		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-
-		for (Object key : method.keySet()) {
-			Map<String, String> tmp = new HashMap<String, String>();
-			tmp.put("methodName", key.toString());
-			tmp.put("location", method.get(key).toString());
-			list.add(tmp);
-		}
-		WriteXML.printXml(list);
-
+		IoC();
 	}
 
 	/**
@@ -212,8 +166,8 @@ public class BeanFactoryOnMethod {
 	 * @param annotations 要使用的注解类
 	 */
 	public static void write(String path, Class[] annotations) {
-		
-		BeanFactoryOnMethod a = new BeanFactoryOnMethod(path, annotations);
+		BeanFactoryOnMethod.annotations=annotations;
+		BeanFactoryOnMethod a = new BeanFactoryOnMethod(path);
 		Map method = a.methodMap;
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 

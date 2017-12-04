@@ -58,10 +58,8 @@ public class ProxyHandler implements InvocationHandler {
 					otherBeans.add(bean);
 			}
 		} catch (JDOMException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -84,25 +82,18 @@ public class ProxyHandler implements InvocationHandler {
 				Method m = clz.getDeclaredMethod(bean.get("methodName"));
 				m.invoke(clz.newInstance());
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -116,25 +107,18 @@ public class ProxyHandler implements InvocationHandler {
 				Method m = clz.getDeclaredMethod(bean.get("methodName"));
 				m.invoke(clz.newInstance());
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -144,7 +128,7 @@ public class ProxyHandler implements InvocationHandler {
 	public void invokeIt(Method method, Object[] args) {
 		invokeBefore();
 		try {
-			Object result = method.invoke(target, args);
+			method.invoke(target, args);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
@@ -153,13 +137,11 @@ public class ProxyHandler implements InvocationHandler {
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		ProxyHandler a = new ProxyHandler();
 		if (methods.isEmpty()) {
 			method.invoke(target, args);
 		} else if (methods.contains(method.getName())) {
 			invokeIt(method, args);
 		}
-
 		return null;
 	}
 

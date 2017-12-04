@@ -1,6 +1,5 @@
 package yhk.spring;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
@@ -35,9 +33,15 @@ public class WriteXML {
 			// 将已经设置好值的elements赋给root
 			root.addContent(elements);
 		}
-		// 定义一个用于输出xml文档的类
-		XMLOutputter XMLOut = new XMLOutputter();
-
+		
+		//格式化XML
+		Format format = Format.getCompactFormat();  
+        format.setEncoding("utf-8");  
+        //这行保证输出后的xml的格式  
+        format.setIndent(" ");  
+        // 定义一个用于输出xml文档的类
+        XMLOutputter XMLOut = new XMLOutputter(format);  
+		
 		try {
 			// 将生成的xml文档Doc输出到本地的beanConfig.xml文档
 			XMLOut.output(Doc, new FileOutputStream("beanConfig.xml"));

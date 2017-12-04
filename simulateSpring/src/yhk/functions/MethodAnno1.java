@@ -3,6 +3,7 @@ package yhk.functions;
 import yhk.annotation.Component;
 import yhk.annotation.afterAnno;
 import yhk.annotation.beforeAnno;
+
 @Component
 public class MethodAnno1{
 	@beforeAnno
