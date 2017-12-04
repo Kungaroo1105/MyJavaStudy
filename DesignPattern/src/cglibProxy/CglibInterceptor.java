@@ -11,19 +11,24 @@ public class CglibInterceptor implements MethodInterceptor {
 	public CglibInterceptor(Object real) {
 		this.real=real;
 	}
+	/* (non-Javadoc)
+	 * obj和proxy是代理对象自己的，method和param是被代理（父类）方法的
+	 */
 	@Override
-	public Object intercept(Object arg0, Method arg1, Object[] arg2, MethodProxy arg3) throws Throwable {
+	public Object intercept(Object obj, Method method, Object[] param, MethodProxy proxy) throws Throwable {
 		System.out.println("hello");
-		arg1.invoke(real, arg2);
+		//调用父类方法
+		proxy.invokeSuper(obj, param);
+		//method.invoke(real, param);
 		System.out.println("world");
 		return null;
 	}
-	public Object createCglibProcy(){
-		Enhancer en= new Enhancer();
-		en.setCallback(this);
-		en.setSuperclass(real.getClass());
-		Object cglibProxy=en.create();
-		return cglibProxy;
-	}
+//	public Object createCglibProcy(){
+//		Enhancer en= new Enhancer();
+//		en.setCallback(this);
+//		en.setSuperclass(real.getClass());
+//		Object cglibProxy=en.create();
+//		return cglibProxy;
+//	}
 
 }
