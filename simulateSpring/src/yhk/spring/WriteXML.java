@@ -61,6 +61,6 @@ public class WriteXML {
 		 list.add(a);
 		 list.add(b);
 		 printXml(list);
-	 }
+	 }	 
 	
 }

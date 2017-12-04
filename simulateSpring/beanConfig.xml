@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans><bean methodName="yhk" location="spring." /><bean methodName="YHK" location="src.spring." /></beans>
+<beans><bean methodAnno="beforeAnno" methodName="start" location="yhk.functions.Anno" /><bean methodAnno="afterAnno" methodName="end" location="yhk.functions.Anno" /></beans>
