@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans><bean methodAnno="beforeAnno" methodName="start" location="yhk.functions.Anno" /><bean methodAnno="afterAnno" methodName="end" location="yhk.functions.Anno" /></beans>
+<beans><bean methodAnno="afterAnno" methodName="stop" location="yhk.functions.MethodAnno1" /><bean methodAnno="beforeAnno" methodName="start" location="yhk.functions.MethodAnno1" /><bean methodAnno="afterAnno" methodName="end" location="yhk.functions.MethodAnno2" /><bean methodAnno="beforeAnno" methodName="begin" location="yhk.functions.MethodAnno2" /></beans>
