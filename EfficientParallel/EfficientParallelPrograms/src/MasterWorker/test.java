@@ -2,6 +2,12 @@ package MasterWorker;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author yhk
+ * 核心思想是，系统有两个进程协议工作：Master进程和Worker进程。
+ * Master进程负责接收和分配任务，Worker进程负责处理子任务。
+ * 当各个Worker进程将子任务处理完后，将结果返回给Master进程，由Master进行归纳和汇总，从而得到系统结果。
+ */
 public class test {
 
 	public static void main(String[] args) {
